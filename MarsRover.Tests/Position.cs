@@ -4,79 +4,26 @@
 	{
 		private readonly int _x;
 		private readonly int _y;
-		private readonly char _direction;
+		public char Direction { get; }
 
 		public Position(int x, int y, char direction)
 		{
+			if (!IsValidDirection(direction))
+				throw new InvalidDirectionException();
+
 			_x = x;
 			_y = y;
-			_direction = direction;
+			Direction = direction;
 		}
 
-		public Position Forward()
+		private static bool IsValidDirection(char direction)
 		{
-			var dy = 0;
-			var dx = 0;
+			var directionAsCapital = direction.ToString().ToUpper();
 
-			if (_direction == 'E')
-				dx = 1;
-			else if (_direction == 'W')
-				dx = -1;
-			else if (_direction == 'N')
-				dy = 1;
-			else if (_direction == 'S')
-				dy = -1;
-
-			return new Position(_x + dx, _y + dy, _direction);
-		}
-
-		public Position Backwards()
-		{
-			var dy = 0;
-			var dx = 0;
-
-			if (_direction == 'E')
-				dx = -1;
-			else if (_direction == 'W')
-				dx = 1;
-			else if (_direction == 'N')
-				dy = -1;
-			else if (_direction == 'S')
-				dy = 1;
-
-			return new Position(_x + dx, _y + dy, _direction);
-		}
-
-		public Position TurnLeft()
-		{
-			var direction = _direction;
-
-			if (_direction == 'S')
-				direction = 'E';
-			else if (_direction == 'E')
-				direction = 'N';
-			else if (_direction == 'N')
-				direction = 'W';
-			else if (_direction == 'W')
-				direction = 'S';
-
-			return new Position(_x, _y, direction);
-		}
-
-		public Position TurnRight()
-		{
-			var direction = _direction;
-
-			if (_direction == 'S')
-				direction = 'W';
-			else if (_direction == 'W')
-				direction = 'N';
-			else if (_direction == 'N')
-				direction = 'E';
-			else if (_direction == 'E')
-				direction = 'S';
-
-			return new Position(_x, _y, direction);
+			return directionAsCapital == "N"
+				   || directionAsCapital == "S"
+				   || directionAsCapital == "W"
+				   || directionAsCapital == "E";
 		}
 
 		public bool IsAt(int x, int y)
@@ -87,7 +34,17 @@
 		public bool IsFacing(char direction)
 		{
 			var directionAsCapital = direction.ToString().ToUpper();
-			return _direction.ToString() == directionAsCapital;
+			return Direction.ToString() == directionAsCapital;
+		}
+
+		public Position Increment(int dx, int dy)
+		{
+			return new Position(_x + dx, _y + dy, Direction);
+		}
+
+		public Position Face(char direction)
+		{
+			return new Position(_x, _y, direction);
 		}
 	}
 }

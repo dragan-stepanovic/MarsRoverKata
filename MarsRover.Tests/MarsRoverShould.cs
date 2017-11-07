@@ -6,15 +6,6 @@ namespace MarsRover.Tests
 	public class MarsRoverShould
 	{
 		[Theory]
-		[InlineData(-1, 1)]
-		[InlineData(1, -1)]
-		[InlineData(-1, -1)]
-		public void NotAcceptNegativeStartingPoint(int x, int y)
-		{
-			Assert.Throws<StartingPointMustBeNonNegativeException>(() => ARover().StartingAt(x, y).Build());
-		}
-
-		[Theory]
 		[InlineData(1, 1)]
 		public void AcceptNonNegativeStartingPoint(int x, int y)
 		{
@@ -24,7 +15,7 @@ namespace MarsRover.Tests
 		[Fact]
 		public void NotAcceptInvalidDirection()
 		{
-			Assert.Throws<InvalidDirectionException>(() => ARover().FacingDirection('P').Build());
+			Assert.Throws<InvalidDirectionException>(() => new Position(0, 0, 'P'));
 		}
 
 		[Theory]
@@ -128,6 +119,5 @@ namespace MarsRover.Tests
 			ARover().StartingAt(0, 0).Build().IsAt(0, 0).Should().BeTrue();
 			ARover().StartingAt(0, 0).Build().IsAt(1, 1).Should().BeFalse();
 		}
-
 	}
 }

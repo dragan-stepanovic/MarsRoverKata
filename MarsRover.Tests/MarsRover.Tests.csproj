@@ -61,11 +61,16 @@
     <Compile Include="InvalidCommandException.cs" />
     <Compile Include="InvalidDirectionException.cs" />
     <Compile Include="MarsRoverShould.cs" />
+    <Compile Include="Commands\MoveBackwardsCommand.cs" />
+    <Compile Include="Commands\MoveCommands.cs" />
+    <Compile Include="Commands\MoveForwardCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rover.cs" />
     <Compile Include="RoverBuilder.cs" />
     <Compile Include="Position.cs" />
     <Compile Include="StartingPointMustBeNonNegativeException.cs" />
+    <Compile Include="Commands\TurnLeftCommand.cs" />
+    <Compile Include="Commands\TurnRightCommand.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
